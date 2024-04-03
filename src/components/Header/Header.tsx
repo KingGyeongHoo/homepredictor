@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { addressState } from "../../pages/Home/State/AddressState";
 
 interface CurrentPage {
   curpage: string;
@@ -10,7 +12,12 @@ export default function Header() {
   const location = useLocation().pathname;
   const navigate = useNavigate();
   const [curPage, setCurPage] = useState("/");
+  const setSearch = useSetRecoilState(addressState)
   const onClickLogo = () => {
+    setSearch({
+      address:'',
+      id:0
+    })
     navigate("/");
   };
 
