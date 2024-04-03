@@ -12,14 +12,22 @@ import {
   YAxis,
 } from "recharts";
 import styled from "styled-components";
-import { temp_graph_data } from "../../../consts/tempData";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
+import { temp_graph_data } from "../../../consts/tempData";
 
-export default function PredictedGraph() {
-  const [graphData, setGraphData] = useState(temp_graph_data);
+interface IPredictedGraph {
+  graphData: IGraphData[];
+  graphLength: number;
+}
+interface IGraphData {
+  date: string;
+  average: number;
+}
+
+export default function PredictedGraph({ graphData }: IPredictedGraph) {
   const predictedIndex = graphData.length - 4;
   const [brushRange, setBrushRange] = useState([
-    graphData.length - 10,
+    graphData.length > 10 ? graphData.length - 10 : 0,
     graphData.length - 1,
   ]);
   const [colorPercent, setColorPercent] = useState<number>();
@@ -49,9 +57,7 @@ export default function PredictedGraph() {
     setColorPercent(percentage);
   }, [brushRange]);
 
-  useEffect(() => {
-    setGraphData(temp_graph_data);
-  }, []);
+  useEffect(() => {}, [graphData]);
 
   return (
     <PredictedGraphContainer>
