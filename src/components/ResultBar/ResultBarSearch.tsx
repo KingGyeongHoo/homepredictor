@@ -23,7 +23,7 @@ export default function ResultBarSearch() {
   };
 
   const showBuildingInfo = (id: number, address: string) => {
-    setClickedAddress(address);
+    setClickedAddress({address : address, id:id});
     navigate(`/result/${id}`);
     setAddress("");
     setRelatedResultShow(false);
