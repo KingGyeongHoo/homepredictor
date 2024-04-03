@@ -23,10 +23,12 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const [dataType, setDataType] = useState<string>("sim");
   const [newsData, setNewsData] = useState<News[]>([]);
+  const [curNews, setCurNews] = useState<News[]>([])
   const [curPage, setCurPage] = useState<number>(1);
+  const [pageArr, setPageArr] = useState<number[]>([]);
   const address = `${
-    useRecoilValue(addressState).split(" ")[1]
-  } ${useRecoilValue(addressState).split(" ").at(-1)}`;
+    useRecoilValue(addressState).address.split(" ")[1]
+  } ${useRecoilValue(addressState).address.split(" ").at(-1)}`;
   const setDataSim = () => {
     setSelectedIdx(0);
     setDataType("sim");
@@ -55,24 +57,35 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
           sort: dataType,
         },
       })
-      .then((res) =>
-        setNewsData(res.data.items.slice(curPage * 4 - 4, curPage * 4))
+      .then((res) =>{
+          setNewsData(res.data.items)
+          setCurNews(res.data.items.slice(0, 4))
+          setPageArr([1,2,3,4,5].slice(0, Math.ceil(res.data.items.length / 4)))
+        }
       );
-  }, [dataType, address, curPage]);
-
+  }, [dataType, address]);
+  useEffect(() => {
+    setCurNews(newsData.slice((curPage - 1) * 4, curPage * 4))
+  }, [curPage])
   const openNews = (url: string) => {
     window.open(url, "_blank");
   };
 
-  const [pageArr, setPageArr] = useState<number[]>([1, 2, 3, 4, 5]);
-
+  const maxPage = Math.ceil(newsData.length / 4)
+    //ex)newsdata = 30. page = 8
   useEffect(() => {
-    if (curPage % 5 === 1) {
-      setPageArr(Array.from({ length: 5 }, (_, index) => index + curPage));
-    } else if (curPage % 5 === 0) {
-      setPageArr(
-        Array.from({ length: 5 }, (_, index) => curPage - index).reverse()
-      );
+    if(curPage + 5 <= maxPage){
+      if(curPage % 5 === 1){
+        setPageArr(Array.from({length: 5}, (_, idx) => idx + curPage ))
+      } else if(curPage % 5 === 0){
+        setPageArr(Array.from({length: 5}, (_, idx) => curPage - idx).reverse())
+      }
+    } else {
+      if(curPage % 5 === 1){
+        setPageArr(Array.from({length: maxPage - curPage + 1}, (_, idx) => idx + curPage ))
+      } else if(curPage % 5 === 0){
+        setPageArr(Array.from({length: 5}, (_, idx) => curPage - idx).reverse())
+      }
     }
   }, [curPage]);
 
@@ -84,9 +97,9 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
         setCurPage(curPage - 1);
       }
     } else if (text === "next") {
-      if (curPage === 25) {
-        setCurPage(25);
-      } else if (curPage < 25) {
+      if (curPage === maxPage) {
+        setCurPage(maxPage);
+      } else if (curPage < maxPage) {
         setCurPage(curPage + 1);
       }
     }
@@ -105,8 +118,8 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
             •최신순
           </DataTypeText>
         </RelatedNewsHeader>
-        {newsData.length > 0 ? (
-          newsData.map((el: News) => {
+        {curNews.length > 0 ? (
+          curNews.map((el: News) => {
             return (
               <NewsContentDiv onClick={() => openNews(el.originallink)}>
                 <h3>{el.title.replace(/<\/br>|<\/?b>|&quot;|&gt;/g, "")}</h3>

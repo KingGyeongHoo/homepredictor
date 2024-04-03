@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { useSearch } from "../../../hooks/useSearch";
 import { addressState } from "../State/AddressState";
@@ -8,15 +9,28 @@ export interface HouseInfo {
   id: number;
   address: string;
 }
+interface Closed{
+  closeResult:boolean;
+}
 
 export const SearchBar = () => {
-  const { address, selectedTownData, typeAddress } = useSearch();
-  const setClickedAddress = useSetRecoilState(addressState);
+  const { address, selectedTownData, setAddress, typeAddress } = useSearch();
+  const [closeResult, setCloseResult] = useState<boolean>(true)
+  const [clickedAddress,setClickedAddress] = useRecoilState(addressState);
   const navigate = useNavigate();
   const showBuildingInfo = (id: number, address: string) => {
-    setClickedAddress(address);
-    navigate(`/result/${id}`);
+    setClickedAddress({
+      address:address,
+      id:id
+    });
+    setCloseResult(true)
   };
+  const navigateToInfo = (info:HouseInfo) => {
+    if(info.id > 0){
+      navigate(`/result/${info.id}`);
+    }
+    setAddress('')
+  }
   const boldMatchingSubstring = (str: string, substr: string) => {
     const index = str.indexOf(substr);
     if (index !== -1) {
@@ -37,9 +51,14 @@ export const SearchBar = () => {
         <SearchContent
           type="text"
           placeholder="주소, 건물명 등을 입력하세요"
-          onChange={typeAddress}
+          value={clickedAddress.address.length > 0 ? clickedAddress.address : address}
+          onChange={(e) => {
+              typeAddress(e)
+              setCloseResult(false)
+            }
+          }
         ></SearchContent>
-        <SearchButton>
+        <SearchButton onClick={() => navigateToInfo(clickedAddress)}>
           <img
             src={`${process.env.PUBLIC_URL}/img/search.png`}
             alt="Searchbar"
@@ -47,7 +66,7 @@ export const SearchBar = () => {
         </SearchButton>
       </SearchBarMainDiv>
       {address.length > 0 ? (
-        <SearchResultDiv>
+        <SearchResultDiv closeResult={closeResult}>
           {selectedTownData !== null && selectedTownData.length > 0 ? (
             <ScrollDiv>
               {selectedTownData.map((el: HouseInfo, idx: number) => (
@@ -141,14 +160,14 @@ const SearchButton = styled.div`
     }
   }
 `;
-const SearchResultDiv = styled.div`
+const SearchResultDiv = styled.div<Closed>`
   position: absolute;
   top: 105px;
   @media (max-width: 600px) {
     top: 85px;
   }
   left: 0;
-  display: flex;
+  display: ${props => props.closeResult ? 'none' : 'flex'};
   flex-direction: column;
   justify-content: center;
   width: 100%;
