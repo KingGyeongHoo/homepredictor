@@ -13,7 +13,6 @@ import {
 } from "recharts";
 import styled from "styled-components";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
-import { temp_graph_data } from "../../../consts/tempData";
 
 interface IPredictedGraph {
   graphData: IGraphData[];
@@ -25,7 +24,7 @@ interface IGraphData {
 }
 
 export default function PredictedGraph({ graphData }: IPredictedGraph) {
-  const predictedIndex = graphData.length - 4;
+  const predictedIndex = graphData.length - 3;
   const [brushRange, setBrushRange] = useState([
     graphData.length > 10 ? graphData.length - 10 : 0,
     graphData.length - 1,
@@ -78,7 +77,7 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
             tick={{ fontSize: 10, fill: "#B9BABA" }}
             height={35}
           />
-          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 10 }} />
+          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 8 }} />
           <ReferenceLine
             x={graphData[predictedIndex].date}
             stroke="#B9BABA"
@@ -92,20 +91,24 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
             strokeWidth={1.5}
             dot={false}
           />
-          <Brush
-            dataKey="x"
-            height={8}
-            stroke="#378ce7"
-            startIndex={brushRange[0]}
-            endIndex={graphData.length - 1}
-            onChange={handleBrushChange}
-            tickFormatter={formatBrush}
-          />
+          {graphData.length > 3 && (
+            <Brush
+              dataKey="x"
+              height={8}
+              stroke="#378ce7"
+              startIndex={brushRange[0]}
+              endIndex={graphData.length - 1}
+              onChange={handleBrushChange}
+              tickFormatter={formatBrush}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
-      <p>
-        {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
-      </p>
+      {graphData.length > 3 && (
+        <p>
+          {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
+        </p>
+      )}
     </PredictedGraphContainer>
   );
 }
