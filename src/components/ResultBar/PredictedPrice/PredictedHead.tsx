@@ -22,7 +22,7 @@ interface ISizeData {
 }
 
 interface IPredictedHead {
-  setSize: React.Dispatch<React.SetStateAction<number>>;
+  setSize: any;
 }
 
 function PredictedHead({ setSize }: IPredictedHead) {
@@ -52,7 +52,7 @@ function PredictedHead({ setSize }: IPredictedHead) {
         onClickSquare(
           res.data[0].highestPredictedPrice,
           res.data[0].lowestPredictedPrice,
-          res.data[0].size,
+          res.data[0].apartmentTypeId,
           0
         );
       })
@@ -71,7 +71,7 @@ function PredictedHead({ setSize }: IPredictedHead) {
                 onClickSquare(
                   item.highestPredictedPrice,
                   item.lowestPredictedPrice,
-                  item.size,
+                  item.apartmentTypeId,
                   idx
                 )
               }

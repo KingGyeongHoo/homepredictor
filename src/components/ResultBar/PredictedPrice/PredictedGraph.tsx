@@ -12,14 +12,21 @@ import {
   YAxis,
 } from "recharts";
 import styled from "styled-components";
-import { temp_graph_data } from "../../../consts/tempData";
 import { calPriceUnit } from "../../../utils/calPriceUnit";
 
-export default function PredictedGraph() {
-  const [graphData, setGraphData] = useState(temp_graph_data);
-  const predictedIndex = graphData.length - 4;
+interface IPredictedGraph {
+  graphData: IGraphData[];
+  graphLength: number;
+}
+interface IGraphData {
+  date: string;
+  average: number;
+}
+
+export default function PredictedGraph({ graphData }: IPredictedGraph) {
+  const predictedIndex = graphData.length - 3;
   const [brushRange, setBrushRange] = useState([
-    graphData.length - 10,
+    graphData.length > 10 ? graphData.length - 10 : 0,
     graphData.length - 1,
   ]);
   const [colorPercent, setColorPercent] = useState<number>();
@@ -45,13 +52,23 @@ export default function PredictedGraph() {
 
   useEffect(() => {
     const tot = brushRange[1] - brushRange[0];
-    const percentage = 100 - (2.6 / (tot - 1)) * 100;
+    console.log(tot);
+    let percentage = 0;
+    if (tot >= 12) {
+      percentage = 100 - (1.8 / (tot - 1)) * 100;
+    } else if (7 <= tot && tot < 12) {
+      percentage = 100 - (1.7 / (tot - 1)) * 100;
+    } else if (6 <= tot && tot < 7) {
+      percentage = 100 - (1.6 / (tot - 1)) * 100;
+    } else if (tot == 5) {
+      percentage = 100 - (1.57 / (tot - 1)) * 100;
+    } else if (tot == 4) {
+      percentage = 100 - (1.24 / (tot - 1)) * 100;
+    } else if (tot == 3) {
+      percentage = 100 - (1.32 / (tot - 1)) * 100;
+    }
     setColorPercent(percentage);
   }, [brushRange]);
-
-  useEffect(() => {
-    setGraphData(temp_graph_data);
-  }, []);
 
   return (
     <PredictedGraphContainer>
@@ -72,13 +89,13 @@ export default function PredictedGraph() {
             tick={{ fontSize: 10, fill: "#B9BABA" }}
             height={35}
           />
-          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 10 }} />
+          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 8 }} />
+          <Tooltip content={CustomTooltip} />
           <ReferenceLine
             x={graphData[predictedIndex].date}
             stroke="#B9BABA"
             strokeWidth={1.5}
           />
-          <Tooltip content={CustomTooltip} />
           <Line
             type="stepAfter"
             dataKey="average"
@@ -86,20 +103,24 @@ export default function PredictedGraph() {
             strokeWidth={1.5}
             dot={false}
           />
-          <Brush
-            dataKey="x"
-            height={8}
-            stroke="#378ce7"
-            startIndex={brushRange[0]}
-            endIndex={graphData.length - 1}
-            onChange={handleBrushChange}
-            tickFormatter={formatBrush}
-          />
+          {graphData.length > 3 && (
+            <Brush
+              dataKey="x"
+              height={8}
+              stroke="#378ce7"
+              startIndex={brushRange[0]}
+              endIndex={graphData.length - 1}
+              onChange={handleBrushChange}
+              tickFormatter={formatBrush}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
-      <p>
-        {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
-      </p>
+      {graphData.length > 3 && (
+        <p>
+          {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
+        </p>
+      )}
     </PredictedGraphContainer>
   );
 }
