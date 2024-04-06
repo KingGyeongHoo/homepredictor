@@ -52,11 +52,23 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
 
   useEffect(() => {
     const tot = brushRange[1] - brushRange[0];
-    const percentage = 100 - (2.6 / (tot - 1)) * 100;
+    console.log(tot);
+    let percentage = 0;
+    if (tot >= 12) {
+      percentage = 100 - (1.8 / (tot - 1)) * 100;
+    } else if (7 <= tot && tot < 12) {
+      percentage = 100 - (1.7 / (tot - 1)) * 100;
+    } else if (6 <= tot && tot < 7) {
+      percentage = 100 - (1.6 / (tot - 1)) * 100;
+    } else if (tot == 5) {
+      percentage = 100 - (1.57 / (tot - 1)) * 100;
+    } else if (tot == 4) {
+      percentage = 100 - (1.24 / (tot - 1)) * 100;
+    } else if (tot == 3) {
+      percentage = 100 - (1.32 / (tot - 1)) * 100;
+    }
     setColorPercent(percentage);
   }, [brushRange]);
-
-  useEffect(() => {}, [graphData]);
 
   return (
     <PredictedGraphContainer>
@@ -78,12 +90,12 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
             height={35}
           />
           <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 8 }} />
+          <Tooltip content={CustomTooltip} />
           <ReferenceLine
             x={graphData[predictedIndex].date}
             stroke="#B9BABA"
             strokeWidth={1.5}
           />
-          <Tooltip content={CustomTooltip} />
           <Line
             type="stepAfter"
             dataKey="average"

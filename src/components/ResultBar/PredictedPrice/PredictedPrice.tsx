@@ -19,7 +19,6 @@ export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
         .get(`${BASE_URL}/v1/dealhistories/${size}`)
         .then((res) => {
           const data = res.data.dealHistoryAverageDtoList;
-          console.log(data);
           setGraphData(data);
         })
         .catch((err) => {
