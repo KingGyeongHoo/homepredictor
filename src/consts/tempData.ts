@@ -23,6 +23,9 @@ export const temp_graph_data = [
   { date: "2022-03", average: 30000 },
   { date: "2022-04", average: 40000 },
   { date: "2022-05", average: 10000 },
+  { date: "2024-03", average: 40000 },
+  { date: "2024-04", average: 10000 },
+  { date: "2024-05", average: 10000 },
 ];
 
 export const temp_traffic_data = {
