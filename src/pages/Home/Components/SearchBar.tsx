@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -31,6 +31,19 @@ export const SearchBar = () => {
     }
     setAddress('')
   }
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && closeResult) {
+        navigateToInfo(clickedAddress);
+      }
+    };
+  
+    document.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [clickedAddress]);
   const boldMatchingSubstring = (str: string, substr: string) => {
     const index = str.indexOf(substr);
     if (index !== -1) {
