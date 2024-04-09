@@ -14,7 +14,7 @@ export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
   const [graphData, setGraphData] = useState<any>();
 
   useEffect(() => {
-    if (size != undefined) {
+    if (size !== undefined) {
       axios
         .get(`${BASE_URL}/v1/dealhistories/${size}`)
         .then((res) => {
@@ -30,8 +30,12 @@ export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
   return (
     <ResultBarBodyTemplate title="거래예측가" scrollRef={scrollRef}>
       <PredictedHead setSize={setSize} />
-      {size != undefined && graphData && (
-        <PredictedGraph graphData={graphData} graphLength={graphData.length} />
+      {size !== undefined && graphData && (
+        <PredictedGraph
+          graphData={graphData}
+          graphLength={graphData.length}
+          size={size}
+        />
       )}
     </ResultBarBodyTemplate>
   );

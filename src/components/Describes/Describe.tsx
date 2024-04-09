@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import styled, { css } from "styled-components";
 
-import { Description } from "../../pages/Home/Components/FirstSection";
+import { Description } from "../HomeSection/FirstSection";
 import {
   descLeft,
   descRight,

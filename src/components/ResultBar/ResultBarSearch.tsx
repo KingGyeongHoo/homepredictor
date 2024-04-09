@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useSearch } from "../../hooks/useSearch";
-import { HouseInfo } from "../../pages/Home/Components/SearchBar";
-import { addressState } from "../../pages/Home/State/AddressState";
+import { HouseInfo } from "../HomeSection/SearchBar";
+import { addressState } from "../../recoil/AddressState";
 
 export default function ResultBarSearch() {
   const { address, selectedTownData, typeAddress, setAddress } = useSearch();
@@ -23,7 +23,7 @@ export default function ResultBarSearch() {
   };
 
   const showBuildingInfo = (id: number, address: string) => {
-    setClickedAddress({address : address, id:id});
+    setClickedAddress({ address: address, id: id });
     navigate(`/result/${id}`);
     setAddress("");
     setRelatedResultShow(false);

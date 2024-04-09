@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Header from "../../components/Header/Header";
-import ResultMap from "../../components/ResultMap/ResultMap";
-import ResultBar from "../../components/ResultBar/ResultBar";
+import Header from "../components/Header/Header";
+import ResultMap from "../components/ResultMap/ResultMap";
+import ResultBar from "../components/ResultBar/ResultBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../apis/api";
+import { BASE_URL } from "../apis/api";
 import { useParams } from "react-router-dom";
 
 interface IBasicInfo {
