@@ -31,7 +31,11 @@ export default function PredictedPrice({ scrollRef }: IResultBodyTemplate) {
     <ResultBarBodyTemplate title="거래예측가" scrollRef={scrollRef}>
       <PredictedHead setSize={setSize} />
       {size !== undefined && graphData && (
-        <PredictedGraph graphData={graphData} graphLength={graphData.length} />
+        <PredictedGraph
+          graphData={graphData}
+          graphLength={graphData.length}
+          size={size}
+        />
       )}
     </ResultBarBodyTemplate>
   );
