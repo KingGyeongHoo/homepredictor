@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { addressState } from "../pages/Home/State/AddressState";
+import { addressState } from "../recoil/AddressState";
 
 export const useSearch = () => {
   const [address, setAddress] = useState<string>("");
   const [selectedTownData, setSelectedTownData] = useState<any>([]);
-  const setClickedAddress = useSetRecoilState(addressState)
+  const setClickedAddress = useSetRecoilState(addressState);
 
   const typeAddress = (e: any) => {
     const apiUrl = "https://api.home-predictor.com/apartments";
@@ -28,8 +28,8 @@ export const useSearch = () => {
         });
     }, 500);
     setAddress(e.target.value);
-    setClickedAddress({address:'', id:0})
+    setClickedAddress({ address: "", id: 0 });
   };
 
-  return { address, selectedTownData, typeAddress, setAddress};
+  return { address, selectedTownData, typeAddress, setAddress };
 };

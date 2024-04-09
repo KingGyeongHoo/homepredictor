@@ -1,36 +1,37 @@
+/* eslint-disable */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { useSearch } from "../../../hooks/useSearch";
-import { addressState } from "../State/AddressState";
+import { useSearch } from "../../hooks/useSearch";
+import { addressState } from "../../recoil/AddressState";
 
 export interface HouseInfo {
   id: number;
   address: string;
 }
-interface Closed{
-  closeResult:boolean;
+interface Closed {
+  closeResult: boolean;
 }
 
 export const SearchBar = () => {
   const { address, selectedTownData, setAddress, typeAddress } = useSearch();
-  const [closeResult, setCloseResult] = useState<boolean>(true)
-  const [clickedAddress,setClickedAddress] = useRecoilState(addressState);
+  const [closeResult, setCloseResult] = useState<boolean>(true);
+  const [clickedAddress, setClickedAddress] = useRecoilState(addressState);
   const navigate = useNavigate();
   const showBuildingInfo = (id: number, address: string) => {
     setClickedAddress({
-      address:address,
-      id:id
+      address: address,
+      id: id,
     });
-    setCloseResult(true)
+    setCloseResult(true);
   };
-  const navigateToInfo = (info:HouseInfo) => {
-    if(info.id > 0){
+  const navigateToInfo = (info: HouseInfo) => {
+    if (info.id > 0) {
       navigate(`/result/${info.id}`);
     }
-    setAddress('')
-  }
+    setAddress("");
+  };
   const boldMatchingSubstring = (str: string, substr: string) => {
     const index = str.indexOf(substr);
     if (index !== -1) {
@@ -51,12 +52,13 @@ export const SearchBar = () => {
         <SearchContent
           type="text"
           placeholder="주소, 건물명 등을 입력하세요"
-          value={clickedAddress.address.length > 0 ? clickedAddress.address : address}
-          onChange={(e) => {
-              typeAddress(e)
-              setCloseResult(false)
-            }
+          value={
+            clickedAddress.address.length > 0 ? clickedAddress.address : address
           }
+          onChange={(e) => {
+            typeAddress(e);
+            setCloseResult(false);
+          }}
         ></SearchContent>
         <SearchButton onClick={() => navigateToInfo(clickedAddress)}>
           <img
@@ -167,7 +169,7 @@ const SearchResultDiv = styled.div<Closed>`
     top: 85px;
   }
   left: 0;
-  display: ${props => props.closeResult ? 'none' : 'flex'};
+  display: ${(props) => (props.closeResult ? "none" : "flex")};
   flex-direction: column;
   justify-content: center;
   width: 100%;

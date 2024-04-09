@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { addressState } from "../../pages/Home/State/AddressState";
+import { addressState } from "../../recoil/AddressState";
 
 interface CurrentPage {
   curpage: string;

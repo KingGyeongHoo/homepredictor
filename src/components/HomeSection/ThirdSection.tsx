@@ -1,4 +1,4 @@
-import { Describe } from "../../../components/Describes/Describe";
+import { Describe } from "../Describes/Describe";
 import { SectionCotainer } from "./FirstSection";
 
 export interface Description {

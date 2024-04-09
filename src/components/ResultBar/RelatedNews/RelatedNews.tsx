@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { addressState } from "../../../pages/Home/State/AddressState";
+import { addressState } from "../../../recoil/AddressState";
 import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
 import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 
