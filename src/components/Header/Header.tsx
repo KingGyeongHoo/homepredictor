@@ -12,12 +12,12 @@ export default function Header() {
   const location = useLocation().pathname;
   const navigate = useNavigate();
   const [curPage, setCurPage] = useState("/");
-  const setSearch = useSetRecoilState(addressState)
+  const setSearch = useSetRecoilState(addressState);
   const onClickLogo = () => {
     setSearch({
-      address:'',
-      id:0
-    })
+      address: "",
+      id: 0,
+    });
     navigate("/");
   };
 
@@ -28,7 +28,10 @@ export default function Header() {
   return (
     <HeaderLayout curpage={curPage}>
       <div onClick={onClickLogo}>
-        <img src={`${process.env.PUBLIC_URL}/img/logo_white.png`}></img>
+        <img
+          src={`${process.env.PUBLIC_URL}/img/logo_white.png`}
+          alt="로고이미지"
+        ></img>
         <h2>Home Predictor</h2>
       </div>
     </HeaderLayout>
@@ -41,24 +44,21 @@ const HeaderLayout = styled.header<CurrentPage>`
   height: 7vh;
   display: flex;
   align-items: center;
-  div{
+  div {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 100%;
     margin-left: 1rem;
     cursor: pointer;
-    img{
+    img {
       width: auto;
       height: 60%;
-      
     }
     h2 {
       margin-left: 0.3rem;
       color: white;
       font-weight: 700;
-      
     }
   }
-  
 `;

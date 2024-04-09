@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
@@ -23,7 +24,7 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const [dataType, setDataType] = useState<string>("sim");
   const [newsData, setNewsData] = useState<News[]>([]);
-  const [curNews, setCurNews] = useState<News[]>([])
+  const [curNews, setCurNews] = useState<News[]>([]);
   const [curPage, setCurPage] = useState<number>(1);
   const [pageArr, setPageArr] = useState<number[]>([]);
   const address = `${
@@ -51,40 +52,53 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   };
   useEffect(() => {
     axios
-      .get("https://port-0-homepserver-2aat2cluginjts.sel5.cloudtype.app/search", {
-        params: {
-          query: `${address} 부동산`,
-          sort: dataType,
-        },
-      })
-      .then((res) =>{
-          setNewsData(res.data.items)
-          setCurNews(res.data.items.slice(0, 4))
-          setPageArr([1,2,3,4,5].slice(0, Math.ceil(res.data.items.length / 4)))
+      .get(
+        "https://port-0-homepserver-2aat2cluginjts.sel5.cloudtype.app/search",
+        {
+          params: {
+            query: `${address} 부동산`,
+            sort: dataType,
+          },
         }
-      );
+      )
+      .then((res) => {
+        setNewsData(res.data.items);
+        setCurNews(res.data.items.slice(0, 4));
+        setPageArr(
+          [1, 2, 3, 4, 5].slice(0, Math.ceil(res.data.items.length / 4))
+        );
+      });
   }, [dataType, address]);
   useEffect(() => {
-    setCurNews(newsData.slice((curPage - 1) * 4, curPage * 4))
-  }, [curPage])
+    setCurNews(newsData.slice((curPage - 1) * 4, curPage * 4));
+  }, [curPage]);
   const openNews = (url: string) => {
     window.open(url, "_blank");
   };
 
-  const maxPage = Math.ceil(newsData.length / 4)
-    //ex)newsdata = 30. page = 8
+  const maxPage = Math.ceil(newsData.length / 4);
+  //ex)newsdata = 30. page = 8
   useEffect(() => {
-    if(curPage + 5 <= maxPage){
-      if(curPage % 5 === 1){
-        setPageArr(Array.from({length: 5}, (_, idx) => idx + curPage ))
-      } else if(curPage % 5 === 0){
-        setPageArr(Array.from({length: 5}, (_, idx) => curPage - idx).reverse())
+    if (curPage + 5 <= maxPage) {
+      if (curPage % 5 === 1) {
+        setPageArr(Array.from({ length: 5 }, (_, idx) => idx + curPage));
+      } else if (curPage % 5 === 0) {
+        setPageArr(
+          Array.from({ length: 5 }, (_, idx) => curPage - idx).reverse()
+        );
       }
     } else {
-      if(curPage % 5 === 1){
-        setPageArr(Array.from({length: maxPage - curPage + 1}, (_, idx) => idx + curPage ))
-      } else if(curPage % 5 === 0){
-        setPageArr(Array.from({length: 5}, (_, idx) => curPage - idx).reverse())
+      if (curPage % 5 === 1) {
+        setPageArr(
+          Array.from(
+            { length: maxPage - curPage + 1 },
+            (_, idx) => idx + curPage
+          )
+        );
+      } else if (curPage % 5 === 0) {
+        setPageArr(
+          Array.from({ length: 5 }, (_, idx) => curPage - idx).reverse()
+        );
       }
     }
   }, [curPage]);

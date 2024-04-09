@@ -60,11 +60,11 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
       percentage = 100 - (1.7 / (tot - 1)) * 100;
     } else if (6 <= tot && tot < 7) {
       percentage = 100 - (1.6 / (tot - 1)) * 100;
-    } else if (tot == 5) {
+    } else if (tot === 5) {
       percentage = 100 - (1.57 / (tot - 1)) * 100;
-    } else if (tot == 4) {
+    } else if (tot === 4) {
       percentage = 100 - (1.24 / (tot - 1)) * 100;
-    } else if (tot == 3) {
+    } else if (tot === 3) {
       percentage = 100 - (1.32 / (tot - 1)) * 100;
     }
     setColorPercent(percentage);
