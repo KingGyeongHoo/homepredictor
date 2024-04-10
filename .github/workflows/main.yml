@@ -11,6 +11,13 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
+        
+      - name: .env setting
+        run: |
+          echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
+          echo "REACT_APP_NAVER_CLIENT_ID=${{ secrets.REACT_APP_NAVER_CLIENT_ID }}" >> .env
+          echo "REACT_APP_NAVER_SECRET_KEY=${{ secrets.REACT_APP_NAVER_SECRET_KEY }}" >> .env
+        
       - name: Install dependencies
         run: yarn install
 
