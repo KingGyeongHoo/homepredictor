@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Describe } from "../../../components/Describes/Describe";
+import { Describe } from "../Describes/Describe";
 
 export interface Description {
   main?: string;

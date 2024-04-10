@@ -17,13 +17,14 @@ import { calPriceUnit } from "../../../utils/calPriceUnit";
 interface IPredictedGraph {
   graphData: IGraphData[];
   graphLength: number;
+  size: number;
 }
 interface IGraphData {
   date: string;
   average: number;
 }
 
-export default function PredictedGraph({ graphData }: IPredictedGraph) {
+export default function PredictedGraph({ graphData, size }: IPredictedGraph) {
   const predictedIndex = graphData.length - 3;
   const [brushRange, setBrushRange] = useState([
     graphData.length > 10 ? graphData.length - 10 : 0,
@@ -50,9 +51,16 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
     setBrushRange((prev) => [e.startIndex, prev[1]]);
   };
 
+  // eslint-disable-next-line
+  useEffect(() => {
+    setBrushRange([
+      graphData.length > 10 ? graphData.length - 10 : 0,
+      graphData.length - 1,
+    ]);
+  }, [graphData]);
+
   useEffect(() => {
     const tot = brushRange[1] - brushRange[0];
-    console.log(tot);
     let percentage = 0;
     if (tot >= 12) {
       percentage = 100 - (1.8 / (tot - 1)) * 100;
@@ -60,11 +68,11 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
       percentage = 100 - (1.7 / (tot - 1)) * 100;
     } else if (6 <= tot && tot < 7) {
       percentage = 100 - (1.6 / (tot - 1)) * 100;
-    } else if (tot == 5) {
+    } else if (tot === 5) {
       percentage = 100 - (1.57 / (tot - 1)) * 100;
-    } else if (tot == 4) {
-      percentage = 100 - (1.24 / (tot - 1)) * 100;
-    } else if (tot == 3) {
+    } else if (tot === 4) {
+      percentage = 100 - (1.5 / (tot - 1)) * 100;
+    } else if (tot === 3) {
       percentage = 100 - (1.32 / (tot - 1)) * 100;
     }
     setColorPercent(percentage);
@@ -118,7 +126,7 @@ export default function PredictedGraph({ graphData }: IPredictedGraph) {
       </ResponsiveContainer>
       {graphData.length > 3 && (
         <p>
-          {graphData[brushRange[0]].date} ~ {graphData[brushRange[1]].date}
+          {graphData[brushRange[0]]?.date} ~ {graphData[brushRange[1]]?.date}
         </p>
       )}
     </PredictedGraphContainer>

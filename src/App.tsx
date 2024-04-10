@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Result from "./pages/Result/Result";
+import Home from "./pages/Home";
+import Result from "./pages/Result";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";

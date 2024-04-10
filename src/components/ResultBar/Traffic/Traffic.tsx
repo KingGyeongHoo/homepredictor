@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { temp_traffic_data } from "../../../consts/tempData";
 import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
@@ -7,15 +7,21 @@ import TraficBus from "./TraficBus";
 import TraficSubway from "./TraficSubway";
 
 export default function Traffic({ scrollRef }: IResultBodyTemplate) {
+  const [trafficInfo, setTrafficInfo] = useState<any>();
+
   // eslint-disable-next-line
-  const [trafficInfo, setTrafficInfo] = useState<any>(temp_traffic_data);
+  useEffect(() => {
+    setTrafficInfo(temp_traffic_data);
+  });
 
   return (
     <ResultBarBodyTemplate title="교통" scrollRef={scrollRef}>
-      <TrafficContainer>
-        <TraficBus busInfo={trafficInfo.bus} />
-        <TraficSubway subwayInfo={trafficInfo.subway} />
-      </TrafficContainer>
+      {trafficInfo && (
+        <TrafficContainer>
+          <TraficBus busInfo={trafficInfo.bus} />
+          <TraficSubway subwayInfo={trafficInfo.subway} />
+        </TrafficContainer>
+      )}
     </ResultBarBodyTemplate>
   );
 }
