@@ -52,21 +52,17 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
   };
   useEffect(() => {
     axios
-      .get(
-        "https://port-0-homepserver-2aat2cluginjts.sel5.cloudtype.app/search",
-        {
-          params: {
-            query: `${address} 부동산`,
-            sort: dataType,
-          },
-        }
-      )
+      .get("https://hp-server.vercel.app/api/news", {
+        params: {
+          query: `${address} 부동산`,
+          sort: dataType,
+        },
+      })
       .then((res) => {
-        setNewsData(res.data.items);
-        setCurNews(res.data.items.slice(0, 4));
-        setPageArr(
-          [1, 2, 3, 4, 5].slice(0, Math.ceil(res.data.items.length / 4))
-        );
+        console.log(res);
+        setNewsData(res.data);
+        setCurNews(res.data.slice(0, 4));
+        setPageArr([1, 2, 3, 4, 5].slice(0, Math.ceil(res.data.length / 4)));
       });
   }, [dataType, address]);
   useEffect(() => {

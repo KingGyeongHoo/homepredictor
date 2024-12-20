@@ -9,17 +9,12 @@ export const useSearch = () => {
   const setClickedAddress = useSetRecoilState(addressState);
 
   const typeAddress = (e: any) => {
-    const apiUrl = "https://api.home-predictor.com/apartments";
+    const apiUrl = "https://hp-server.vercel.app/api/address";
     let timer;
     clearTimeout(timer);
     timer = setTimeout(() => {
       axios
-        .get(`${apiUrl}?address=${e.target.value}`, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-          },
-        })
+        .get(`${apiUrl}?search=${e.target.value}`)
         .then((response) => {
           setSelectedTownData(response.data.slice(0, 20));
         })

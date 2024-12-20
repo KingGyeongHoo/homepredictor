@@ -44,22 +44,22 @@ function PredictedHead({ setSize }: IPredictedHead) {
     setActiveBtn(idx);
   };
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/v1/apartmenttypes/${apartmentId}`)
-      .then((res) => {
-        setSizeData(res.data);
-        onClickSquare(
-          res.data[0].highestPredictedPrice,
-          res.data[0].lowestPredictedPrice,
-          res.data[0].apartmentTypeId,
-          0
-        );
-      })
-      .catch((err) => {
-        console.log("에러가 발생했습니다" + err);
-      });
-  }, [apartmentId]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${BASE_URL}/v1/apartmenttypes/${apartmentId}`)
+  //     .then((res) => {
+  //       setSizeData(res.data);
+  //       onClickSquare(
+  //         res.data[0].highestPredictedPrice,
+  //         res.data[0].lowestPredictedPrice,
+  //         res.data[0].apartmentTypeId,
+  //         0
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       console.log("에러가 발생했습니다" + err);
+  //     });
+  // }, [apartmentId]);
 
   return (
     <>
