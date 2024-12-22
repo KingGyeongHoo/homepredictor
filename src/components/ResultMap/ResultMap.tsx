@@ -12,7 +12,6 @@ interface IResultMap {
 }
 
 export default function ResultMap({ lat, lng }: IResultMap) {
-  console.log(lat, lng);
   return (
     <MapLayout>
       <Map

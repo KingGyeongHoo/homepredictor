@@ -25,7 +25,6 @@ interface IGraphData {
 }
 
 export default function PredictedGraph({ graphData, size }: IPredictedGraph) {
-  console.log(graphData);
   const predictedIndex = graphData.length - 3;
   const [brushRange, setBrushRange] = useState([
     graphData.length > 10 ? graphData.length - 10 : 0,

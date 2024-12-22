@@ -8,7 +8,6 @@ export default function Facilities({
 }: {
   facilities: { name: string; distance: number; type: string }[];
 } & IResultBodyTemplate) {
-  console.log(facilities);
   const getColor = (type: string) => {
     if (type === "공원") return "#067822";
     else if (type === "마트") return "#d39d13";

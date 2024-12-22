@@ -25,7 +25,6 @@ export default function Result() {
   const [clickedAddress, setClickedAddress] = useRecoilState(addressState);
   const [basicInfo, setBasicInfo] = useState<IInfo>();
   const { apartmentId } = useParams();
-  console.log(apartmentId);
 
   useEffect(() => {
     axios

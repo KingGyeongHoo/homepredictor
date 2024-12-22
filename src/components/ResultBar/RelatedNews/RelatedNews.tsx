@@ -59,7 +59,6 @@ export default function RelatedNews({ scrollRef }: IResultBodyTemplate) {
         },
       })
       .then((res) => {
-        console.log(res);
         setNewsData(res.data);
         setCurNews(res.data.slice(0, 4));
         setPageArr([1, 2, 3, 4, 5].slice(0, Math.ceil(res.data.length / 4)));
