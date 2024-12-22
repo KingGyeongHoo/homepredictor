@@ -9,10 +9,13 @@ HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측
 ### 📆개발 기간
 **2024.03~2024.04**
 
+**2024.12** (리팩토링)
+
 ### 🤼‍♂️팀원
  - FE: 송경후, 전서연
  - BE: 장성수, 황규철, 정혜민
  - AI: 이명진, 엄효범
+ - **리팩토링**: 송경후
 
 ## ✏목차
 1. **기술 스택**
@@ -22,9 +25,9 @@ HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측
 
 ## 🛠기술 스택
 - **Frontend**: <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"><img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/Styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"><img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white">
-- **Backend**: <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/nodejs-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
+- **Backend**: <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/nextjs-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">
 - **AI**: <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><img src="https://img.shields.io/badge/jupyternotebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white"><img src="https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white"><img src="https://img.shields.io/badge/keras-D00000?style=for-the-badge&logo=keras&logoColor=white">
-- **Deployment**: <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"><img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
+- **Deployment**: <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"><img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white"><img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 - **Other Tools**: <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"><img src="https://img.shields.io/badge/photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white"><img src="https://img.shields.io/badge/slcak-4A154B?style=for-the-badge&logo=slack&logoColor=white"><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
 ## 💻주요 기능
@@ -55,6 +58,10 @@ HomePredictor는 혼란한 부동산 시장 속, 3개월 후의 집값을 예측
  - **관련 뉴스**
    - 네이버 검색 API를 이용해 지역 및 부동산 관련 뉴스를 크롤링 해옵니다.
    - 정확도순/최신순 선택에 따라 뉴스 데이터가 정렬되고, 페이지 이동이 가능합니다.
+### 사이드 서버 구축 (리팩토링)
+ - **Next.js의 서버 컴포넌트를 활용한 사이드 서버 구축**
+   - Next.js의 서버 컴포넌트를 활용하여 서버에 저장된 데이터를 클라이언트에 전달
+   - 네이버 검색 API의 CORS 에러를 사이드 서버로 중계 함으로써 CORS 에러 해결 
 
 ## 📎링크
 ### [배포](https://homepredictor.netlify.app/)
