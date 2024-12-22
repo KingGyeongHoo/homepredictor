@@ -14,7 +14,10 @@ interface IResultMap {
 export default function ResultMap({ lat, lng }: IResultMap) {
   return (
     <MapLayout>
-      <Map center={{ lat, lng }} style={{ width: "100%", height: "100%" }}>
+      <Map
+        center={{ lat: 33.450701, lng: 126.570667 }}
+        style={{ width: "100%", height: "100%" }}
+      >
         <MapMarker position={{ lat, lng }} />
         <MapTypeControl />
         <ZoomControl />

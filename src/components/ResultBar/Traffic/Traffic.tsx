@@ -6,13 +6,20 @@ import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 import TraficBus from "./TraficBus";
 import TraficSubway from "./TraficSubway";
 
-export default function Traffic({ scrollRef }: IResultBodyTemplate) {
+export default function Traffic({
+  scrollRef,
+  bus,
+  subway,
+}: {
+  bus: { name: string; distance: number }[];
+  subway: { name: string; distance: number; line: number }[];
+} & IResultBodyTemplate) {
   const [trafficInfo, setTrafficInfo] = useState<any>();
 
   // eslint-disable-next-line
   useEffect(() => {
-    setTrafficInfo(temp_traffic_data);
-  });
+    setTrafficInfo({ subway, bus });
+  }, []);
 
   return (
     <ResultBarBodyTemplate title="교통" scrollRef={scrollRef}>
