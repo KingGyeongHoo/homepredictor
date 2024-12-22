@@ -4,22 +4,10 @@ import ResultMap from "../components/ResultMap/ResultMap";
 import ResultBar from "../components/ResultBar/ResultBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../apis/api";
 import { useParams } from "react-router-dom";
-import { infoData } from "../data";
 import { useRecoilState } from "recoil";
 import { addressState } from "../recoil/AddressState";
 import { IInfo } from "../components/ResultBar/ResultBar";
-
-interface IBasicInfo {
-  id: number;
-  address: string;
-  apartmentName: string;
-  latitude: number;
-  longitude: number;
-  bus: { name: string; distance: number }[];
-  subway: { name: string; distance: number; line: number };
-}
 
 export default function Result() {
   const [clickedAddress, setClickedAddress] = useRecoilState(addressState);
