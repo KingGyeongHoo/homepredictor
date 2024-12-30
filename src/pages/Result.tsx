@@ -4,25 +4,21 @@ import ResultMap from "../components/ResultMap/ResultMap";
 import ResultBar from "../components/ResultBar/ResultBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../apis/api";
 import { useParams } from "react-router-dom";
-
-interface IBasicInfo {
-  latitude: number;
-  longitude: number;
-  apartmentName: string;
-  address: string;
-}
+import { useRecoilState } from "recoil";
+import { addressState } from "../recoil/AddressState";
+import { IInfo } from "../components/ResultBar/ResultBar";
 
 export default function Result() {
-  const [basicInfo, setBasicInfo] = useState<IBasicInfo>();
+  const [clickedAddress, setClickedAddress] = useRecoilState(addressState);
+  const [basicInfo, setBasicInfo] = useState<IInfo>();
   const { apartmentId } = useParams();
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/v1/apartmenttypes/locations/${apartmentId}`)
+      .get(`https://hp-server.vercel.app/api/info?id=${clickedAddress.id}`)
       .then((res) => {
-        setBasicInfo(res.data);
+        setBasicInfo(res.data[0]);
       })
       .catch((err) => {
         console.log("에러가 발생했습니다" + err);
@@ -34,11 +30,8 @@ export default function Result() {
       <Header />
       {basicInfo && (
         <ResultBodyBox>
-          <ResultBar
-            apartmentName={basicInfo.apartmentName}
-            apartmentAdd={basicInfo.address}
-          />
-          <ResultMap lat={basicInfo.latitude} lng={basicInfo.longitude} />
+          <ResultBar info={basicInfo} />
+          <ResultMap address={basicInfo.address} />
         </ResultBodyBox>
       )}
     </ResultLayout>

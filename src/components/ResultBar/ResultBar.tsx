@@ -14,7 +14,17 @@ interface IResultBar {
   apartmentAdd: string;
 }
 
-export default function ResultBar({ apartmentName, apartmentAdd }: IResultBar) {
+export interface IInfo {
+  id: number;
+  address: string;
+  apartmentName: string;
+  bus: { name: string; distance: number }[];
+  subway: { name: string; distance: number; line: number }[];
+  facilities: { name: string; distance: number; type: string }[];
+}
+
+export default function ResultBar({ info }: { info: IInfo }) {
+  const { address, apartmentName, bus, subway, facilities, ...rest } = info;
   const [isOpen, setIsOpen] = useState(false);
   const scrollRef = useRef<HTMLElement[] | null[]>([]);
   const [tabMenuIdx, setTabMenuIdx] = useState(0);
@@ -46,7 +56,7 @@ export default function ResultBar({ apartmentName, apartmentAdd }: IResultBar) {
       {isOpen && <ResultBarSearch />}
       <ResultBarHead
         apartmentName={apartmentName}
-        apartmentAdd={apartmentAdd}
+        apartmentAdd={address}
         setIsOpen={setIsOpen}
       />
       <ResultBarMenu scrollRef={scrollRef} tabMenuIdx={tabMenuIdx} />
@@ -54,8 +64,15 @@ export default function ResultBar({ apartmentName, apartmentAdd }: IResultBar) {
         <PredictedPrice
           scrollRef={(ref: any) => (scrollRef.current[0] = ref)}
         />
-        <Traffic scrollRef={(ref: any) => (scrollRef.current[1] = ref)} />
-        <Facilities scrollRef={(ref: any) => (scrollRef.current[2] = ref)} />
+        <Traffic
+          scrollRef={(ref: any) => (scrollRef.current[1] = ref)}
+          bus={bus}
+          subway={subway}
+        />
+        <Facilities
+          scrollRef={(ref: any) => (scrollRef.current[2] = ref)}
+          facilities={facilities}
+        />
         <RelatedNews scrollRef={(ref: any) => (scrollRef.current[3] = ref)} />
       </ResultBodyBox>
     </ResultBarContainer>
