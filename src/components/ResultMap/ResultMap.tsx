@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Map,
   MapMarker,
@@ -7,18 +8,30 @@ import {
 import styled from "styled-components";
 
 interface IResultMap {
-  lat: number;
-  lng: number;
+  address: string;
 }
+export default function ResultMap({ address }: IResultMap) {
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const geocoder = new kakao.maps.services.Geocoder();
+  useEffect(() => {
+    geocoder.addressSearch(address, function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        console.log(result);
+        setCoords({
+          x: Number(result[0].x),
+          y: Number(result[0].y),
+        });
+      }
+    });
+  }, []);
 
-export default function ResultMap({ lat, lng }: IResultMap) {
   return (
     <MapLayout>
       <Map
-        center={{ lat: 33.450701, lng: 126.570667 }}
+        center={{ lat: coords.y, lng: coords.x }}
         style={{ width: "100%", height: "100%" }}
       >
-        <MapMarker position={{ lat, lng }} />
+        <MapMarker position={{ lat: coords.y, lng: coords.x }} />
         <MapTypeControl />
         <ZoomControl />
       </Map>

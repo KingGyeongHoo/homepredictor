@@ -19,6 +19,7 @@ export default function Facilities({
     else if (type === "행정기관") return "#3a3a3a";
     else if (type === "교통") return "#074a92";
     else if (type === "업무/상업시설") return "#000000";
+    else if (type === "학교") return "#bb3107";
     return "";
   };
   return (

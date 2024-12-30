@@ -31,7 +31,7 @@ export default function Result() {
       {basicInfo && (
         <ResultBodyBox>
           <ResultBar info={basicInfo} />
-          <ResultMap lat={basicInfo.latitude} lng={basicInfo.longitude} />
+          <ResultMap address={basicInfo.address} />
         </ResultBodyBox>
       )}
     </ResultLayout>

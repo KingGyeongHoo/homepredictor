@@ -18,8 +18,6 @@ export interface IInfo {
   id: number;
   address: string;
   apartmentName: string;
-  latitude: number;
-  longitude: number;
   bus: { name: string; distance: number }[];
   subway: { name: string; distance: number; line: number }[];
   facilities: { name: string; distance: number; type: string }[];
