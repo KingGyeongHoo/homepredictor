@@ -16,7 +16,6 @@ export default function ResultMap({ address }: IResultMap) {
   useEffect(() => {
     geocoder.addressSearch(address, function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
-        console.log(result);
         setCoords({
           x: Number(result[0].x),
           y: Number(result[0].y),

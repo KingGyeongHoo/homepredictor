@@ -22,8 +22,16 @@ export default function ResultBarSearch() {
     }
   };
 
-  const showBuildingInfo = (id: number, address: string) => {
-    setClickedAddress({ address: address, id: id });
+  const showBuildingInfo = (
+    id: number,
+    apartmentName: string,
+    address: string
+  ) => {
+    setClickedAddress({
+      address: address,
+      apartmentName: apartmentName,
+      id: id,
+    });
     navigate(`/result/${id}`);
     setAddress("");
     setRelatedResultShow(false);
@@ -73,7 +81,9 @@ export default function ResultBarSearch() {
               {selectedTownData.map((el: HouseInfo, idx: number) => (
                 <SearchResultContent
                   key={idx}
-                  onClick={() => showBuildingInfo(el.id, el.address)}
+                  onClick={() =>
+                    showBuildingInfo(el.id, el.apartmentName, el.address)
+                  }
                 >
                   {boldMatchingSubstring(el.address, address)}
                 </SearchResultContent>

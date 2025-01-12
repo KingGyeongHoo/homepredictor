@@ -23,7 +23,7 @@ export const useSearch = () => {
         });
     }, 500);
     setAddress(e.target.value);
-    setClickedAddress({ address: "", id: 0 });
+    setClickedAddress({ address: "", apartmentName: "", id: 0 });
   };
 
   return { address, selectedTownData, typeAddress, setAddress };

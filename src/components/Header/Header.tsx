@@ -16,6 +16,7 @@ export default function Header() {
   const onClickLogo = () => {
     setSearch({
       address: "",
+      apartmentName: "",
       id: 0,
     });
     navigate("/");

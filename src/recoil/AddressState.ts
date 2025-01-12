@@ -1,9 +1,10 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
 export const addressState = atom({
-  key: 'addressState',
+  key: "addressState",
   default: {
-    address:'',
-    id:0
+    address: "",
+    apartmentName: "",
+    id: 0,
   },
 });

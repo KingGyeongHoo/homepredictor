@@ -8,6 +8,7 @@ import { addressState } from "../../recoil/AddressState";
 
 export interface HouseInfo {
   id: number;
+  apartmentName: string;
   address: string;
 }
 interface Closed {
@@ -19,9 +20,14 @@ export const SearchBar = () => {
   const [closeResult, setCloseResult] = useState<boolean>(true);
   const [clickedAddress, setClickedAddress] = useRecoilState(addressState);
   const navigate = useNavigate();
-  const showBuildingInfo = (id: number, address: string) => {
+  const showBuildingInfo = (
+    id: number,
+    apartmentName: string,
+    address: string
+  ) => {
     setClickedAddress({
       address: address,
+      apartmentName: apartmentName,
       id: id,
     });
     setCloseResult(true);
@@ -88,7 +94,9 @@ export const SearchBar = () => {
               {selectedTownData.map((el: HouseInfo, idx: number) => (
                 <SearchResultContent
                   key={idx}
-                  onClick={() => showBuildingInfo(el.id, el.address)}
+                  onClick={() =>
+                    showBuildingInfo(el.id, el.apartmentName, el.address)
+                  }
                 >
                   {boldMatchingSubstring(el.address, address)}
                 </SearchResultContent>
