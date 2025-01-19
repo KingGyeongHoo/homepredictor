@@ -8,11 +8,16 @@ export const useSearch = () => {
   const [selectedTownData, setSelectedTownData] = useState<any>([]);
   const setClickedAddress = useSetRecoilState(addressState);
 
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
   const typeAddress = (e: any) => {
     const apiUrl = "https://hp-server.vercel.app/api/address";
-    let timer;
-    clearTimeout(timer);
-    timer = setTimeout(() => {
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
       axios
         .get(`${apiUrl}?search=${e.target.value}`)
         .then((response) => {
@@ -22,6 +27,9 @@ export const useSearch = () => {
           console.error("Error fetching data:", error);
         });
     }, 500);
+
+    setTimer(newTimer);
+
     setAddress(e.target.value);
     setClickedAddress({ address: "", apartmentName: "", id: 0 });
   };

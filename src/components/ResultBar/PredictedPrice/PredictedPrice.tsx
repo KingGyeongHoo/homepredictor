@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../../apis/api";
 import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 import PredictedGraph from "./PredictedGraph";
 import PredictedHead from "./PredictedHead";
-import { temp_graph_data } from "../../../consts/tempData";
 import { useRecoilValue } from "recoil";
 import { addressState } from "../../../recoil/AddressState";
 import PredictedLoading from "./PredictedLoading";

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { temp_traffic_data } from "../../../consts/tempData";
 import { IResultBodyTemplate } from "../PredictedPrice/PredictedPrice";
 import ResultBarBodyTemplate from "../ResultBarBodyTemplate";
 import TraficBus from "./TraficBus";
