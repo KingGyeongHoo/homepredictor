@@ -21,7 +21,7 @@ interface IPredictedGraph {
 }
 interface IGraphData {
   date: string;
-  average: number;
+  price: number;
 }
 
 export default function PredictedGraph({ graphData, size }: IPredictedGraph) {
@@ -97,7 +97,14 @@ export default function PredictedGraph({ graphData, size }: IPredictedGraph) {
             tick={{ fontSize: 10, fill: "#B9BABA" }}
             height={35}
           />
-          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 8 }} />
+          <YAxis
+            tickFormatter={formatYAxis}
+            tick={{ fontSize: 8 }}
+            domain={[
+              Math.min(...graphData.map((item) => item.price)),
+              Math.max(...graphData.map((item) => item.price)),
+            ]}
+          />
           <Tooltip content={CustomTooltip} />
           <ReferenceLine
             x={graphData[predictedIndex].date}
@@ -106,7 +113,7 @@ export default function PredictedGraph({ graphData, size }: IPredictedGraph) {
           />
           <Line
             type="stepAfter"
-            dataKey="average"
+            dataKey="price"
             stroke="url(#gradient)"
             strokeWidth={1.5}
             dot={false}
@@ -120,6 +127,7 @@ export default function PredictedGraph({ graphData, size }: IPredictedGraph) {
               endIndex={graphData.length - 1}
               onChange={handleBrushChange}
               tickFormatter={formatBrush}
+              ariaLabel="Brush"
             />
           )}
         </LineChart>
@@ -144,7 +152,7 @@ const CustomTooltip = ({
     return (
       <CustomToolTipContainer>
         <p className="label">{tootipLabel}</p>
-        <p className="average">평균: {calPriceUnit(payload[0].value!)}</p>
+        <p className="price">평균: {calPriceUnit(payload[0].value!)}</p>
       </CustomToolTipContainer>
     );
   }
@@ -160,7 +168,7 @@ const CustomToolTipContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
-  .average {
+  .price {
     font-weight: 700;
   }
 `;

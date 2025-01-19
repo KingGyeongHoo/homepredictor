@@ -6,8 +6,70 @@ import { FirstSection } from "../components/HomeSection/FirstSection";
 import { SecondSection } from "../components/HomeSection/SecondSection";
 import { ThirdSection } from "../components/HomeSection/ThirdSection";
 import TopButton from "../components/HomeSection/TopButton";
+interface User {
+  type: "user";
+  id: string;
+  name: string;
+}
 
+interface Admin {
+  type: "admin";
+  id: string;
+  name: string;
+}
 export default function Home() {
+  const data = [
+    {
+      date: "2024.02",
+      price: 67100000,
+    },
+    {
+      date: "2024.03",
+      price: 67100000,
+    },
+    {
+      date: "2024.04",
+      price: 69700000,
+    },
+    {
+      date: "2024.05",
+      price: 70200000,
+    },
+    {
+      date: "2024.06",
+      price: 65900000,
+    },
+    {
+      date: "2024.07",
+      price: 66600000,
+    },
+    {
+      date: "2024.08",
+      price: 67100000,
+    },
+    {
+      date: "2024.09",
+      price: 67100000,
+    },
+    {
+      date: "2024.10",
+      price: 67800000,
+    },
+    {
+      date: "2024.11",
+      price: 67400000,
+    },
+    {
+      date: "2024.12",
+      price: 67200000,
+    },
+    {
+      date: "2025.01",
+      price: 67000000,
+    },
+  ];
+
+  console.log(data.map((el) => `${el.date} : ${el.price}`).toString());
   return (
     <>
       <TopButton></TopButton>
